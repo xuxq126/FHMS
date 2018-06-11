@@ -1,0 +1,115 @@
+
+VintaSoftTwain ActiveX Control will help you to control scanners, digital or
+web cameras or any other TWAIN devices. You can fully control the image
+acquisition process, use the automatic document feeder, clean up images using
+noise removal, auto border crop, blank page detection, save acquired images
+to disk, SQL server or upload them to the server as BMP, JPEG or TIFF files.
+ActiveX can be used in your programs written on any programming languages
+which support work with ActiveX/COM controls.
+ActiveX was tested and has examples of use in: MS VB.NET, MS C#, MS VB 6.0,
+MS VC++ 6.0, Borland Delphi 7.0, Borland C++ Builder 6.0, Borland Delphi .NET,
+Borland C# Builder, Visual FoxPro 8.0, Gupta SQL Windows 3.1, MS Access,
+ASP.NET, VBScript, JavaScript, MS Excel, MS Word, IBM Lotus Notes,
+IBM Object Rexx language.
+
+=============================================================================
+
+Die VintaSoftTwain-ActiveX-Komponente hilft Ihnen, alle TWAIN-kompatiblen
+Geraete, wie Scanner, Web- und Digitalkameras zu steuern. Sie koennen ein
+angeschlossenes Gerat waehlen, die Scan-Parameter uebergeben, Automatische
+Dokumenteinzuege verwalten, die gescannten Bilder im BMP-, TIF- oder
+JPEG-Format speichern und sie auf HTTP- oder FTP-Server hochladen.
+VintaSoftTwain kann in beliebigen Programmiersprachen, die das Aufrufen von
+ActiveX-Komponenten unterstuetzen, verwendet werden.
+
+Die VintaSoftTwain-ActiveX-Komponente hilft Ihnen, alle TWAIN-kompatiblen Geraete, wie Scanner, Web- und Digitalkameras zu steuern. Sie koennen ein angeschlossenes Gerat waehlen, die Scan-Parameter uebergeben, Automatische Dokumenteinzuege verwalten, die gescannten Bilder im BMP-, TIF- oder JPEG-Format speichern und sie auf HTTP- oder FTP-Server hochladen. VintaSoftTwain kann in beliebigen Programmiersprachen, die das Aufrufen von ActiveX-Komponenten unterstuetzen, verwendet werden.
+
+=============================================================================
+
+VintaSoftTwain ActiveX компонент позволяет управлять работой сканеров,
+цифровых и веб камер, а также любых других TWAIN устройств. С этим компонентом
+Вы сможете полностью контролировать процесс получения изображений, работать
+с лотком автоматической подачи документов, сохранять полученные изображения
+в BMP, JPEG или TIFF формате на диск, в таблице SQL сервера, отсылать
+изображения на HTTP или FTP сервер. Компонент можно использовать в любых
+языках программирования поддерживающих работу с ActiveX.
+
+=============================================================================
+
+Le VintaSoftTwain ActiveX peut controler vos travaux de scanner de bureau ou
+portatif, de camera digital, de camera web ou tout autre source qui supporte
+le standard TWAIN. Vous avez le plein controle sur le processus d'acquisition
+des images, controle un travail automatique sur l'alimentation de vos
+documents, enregistre les images acquises en format BMP, JPEG ou TIFF et
+envoie des images sur un serveur HTTP ou FTP. Vous pouvez utilise cet ActiveX
+dans vos programmes ou applications ecrits dans n'importe quel language de
+programmation qui supporte le travail avec les controles ActiveX.
+
+=============================================================================
+
+VintaSoftTwain ActiveX Control le ayudara a controlar scanners, camaras
+digitales, camaras  web o cualquier dispositivo TWAIN. Podra controlar
+completamente el proceso de captura de imagenes, usar el alimentador
+automatico de documentos, guardar las imagenes capturadas en disco, SQL Server
+o en un servidor en formato BMP, JPEG o TIFF. ActiveX puede ser usado en
+programas escritos en cualquiera de los lenguajes de programacion que
+soportan controles ActiveX/COM.
+
+=============================================================================
+
+Con VintaSoftTwain ActiveX puoi gestire il lavoro con tutti gli strumenti
+che supportano lo standard Twain come scanner piani e non, fotocamere digitali,
+webcam ed altro. Hai un controllo totale sul processo di acquisizione
+dell'immagine, gestisci l'ADF, puoi salvare nel formato BMP, JPEG o TIFF,
+puoi spedire le immagini su un server WEB o FTP. Poi usare questa ActiveX
+nei tuoi programmi scritti con qualunque linguaggio che supporti gli oggetti
+ActiveX.
+
+=============================================================================
+
+VintaSoftTwain ActiveX kan styra och hantera arbetsflodet for flatbadds och
+handhallna skannrar, digital och Web kameror och alla andra apparater som
+stoder TWAIN standarden. Ni kan till fullo kontrollera bild forvarvnings
+processen, styra arbetet av en dokumentmatare, spara forvarvade bilder i BMP,
+JPEG eller TIFF format, sanda bilder till en Web eller FTP server. Ni kan
+ocksa anvanda ActiveX komponenten i program skrivna i vilket som helst av de
+programmering sprak som stodjer anvandningen av ActiveX komponenter.
+
+=============================================================================
+
+VintaSoftTwain ActiveX Control segitsegevel vezerelhet szkennereket, digitalis
+vagy web kamerakat vagy barmilyen mas TWAN kompatibilis eszkozt. Teljes
+mertekben kontrollalhatja a szkenneles folyamatat, hasznalhatja az automatikus
+papiradagolot, es a beolvasott anyagokat lemezre mentheti. A kepeket
+SQL adatbazisba is teheti, vagy akar feltoltheti Web szerverre BMP, JPEG vagy
+TIFF formatumban. Az ActiveX hasznalhato minden olyan sajat fejlesztesu
+szoftverben, ami tamogatja az ActiveX/COM vezerlok hasznalatat.
+
+=============================================================================
+
+De VintaSoftTwain ActiveX werkt  met flatbedscanners, handscanners,  digitale
+fototoestellen en webcams alsook met eender welk toestel dat compatibel is
+met de TWAIN standaard. U controlleert de acquisitie van beelden volledig,
+bestuurt de ADF-module, bewaart de beelden in BMP, JPEG of TIFF formaten en
+zendt de beelden naar een website of FTP server. Deze ActiveX kan in
+programma's gebruikt worden, die geschreven zijn in talen die het toelaten
+om ActiveX controles op te roepen.
+
+=============================================================================
+
+VintaSoftTwain ActiveX може да контролира работата на настолни и ръчни
+скенери, цифрови и уеб камери и всяка периферия поддържаща TWAIN стандарт.
+Вие можете изцяло да контролирате процеса на събиране на изображения, да
+управлявате работата на ADF, да съхранявате събраните изображения в BMP,
+JPEG или TIFF формат, да изпращате изображения към FTP сервер. Вие можете
+да използвате ActiveX във вашите програми написани на всеки програмен език,
+който поддържа работа с ActiveX управление.
+
+=============================================================================
+
+VintaSoftTwain ActiveX umoznuje ovladat skenery, digitalni fotoaparaty, web
+kamery a vsechna jina TWAIN zarizeni. Moznosti plne kontroly nad procesem
+ziskavani obrazku, vyuziti automatickeho podavace, odstraneni sumu,
+automaticke orezavani, detektce prazdne stranky, ukladani obrazku na disk
+nebo SQL server,  odeslani  obrazku na web nebo ftp server.
+

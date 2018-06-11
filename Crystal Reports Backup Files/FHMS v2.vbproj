@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{10B38C41-B976-4360-B529-EA208984B62C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>FHMS_v2.My.MyApplication</StartupObject>
+    <RootNamespace>FHMS_v2</RootNamespace>
+    <AssemblyName>FHMS v2</AssemblyName>
+    <MyType>WindowsForms</MyType>
+    <ApplicationIcon>logo.ICO</ApplicationIcon>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>FHMS v2.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>FHMS v2.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Vintasoft.Twain, Version=5.1.11.1, Culture=neutral, PublicKeyToken=153caf29a10d2e31, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\VintaSoft\VSTwain.NET.5_1\Vintasoft.Twain.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClassReview.vb" />
+    <Compile Include="CrystalReport1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Database class\SqlClass.vb" />
+    <Compile Include="dsBatch.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsBatch.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsBatch.vb">
+      <DependentUpon>dsBatch.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="eztwain.vb" />
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAllSch.Designer.vb">
+      <DependentUpon>frmAllSch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAllSch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBatch.Designer.vb">
+      <DependentUpon>frmBatch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBatch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBatchRpt.Designer.vb">
+      <DependentUpon>frmBatchRpt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBatchRpt.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCategory.Designer.vb">
+      <DependentUpon>frmCategory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCategory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditPermit.Designer.vb">
+      <DependentUpon>frmEditPermit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEditPermit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFacility.Designer.vb">
+      <DependentUpon>frmFacility.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFacility.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImpImg.Designer.vb">
+      <DependentUpon>frmImpImg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmImpImg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOHSignOff.Designer.vb">
+      <DependentUpon>frmMOHSignOff.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMOHSignOff.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPhi.Designer.vb">
+      <DependentUpon>frmPhi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPhi.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQlookup.Designer.vb">
+      <DependentUpon>frmQlookup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmQlookup.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegSchedule.Designer.vb">
+      <DependentUpon>frmRegSchedule.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRegSchedule.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReview.Designer.vb">
+      <DependentUpon>frmReview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmReview.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScanSource.Designer.vb">
+      <DependentUpon>frmScanSource.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmScanSource.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSignature.Designer.vb">
+      <DependentUpon>frmSignature.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSignature.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUser.Designer.vb">
+      <DependentUpon>frmUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm1.Designer.vb">
+      <DependentUpon>LoginForm1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.vb">
+      <DependentUpon>Main.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Main.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Module1.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="rptbatch.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptbatch.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rptReview.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptReview.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="subMedical.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>subMedical.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubTest.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubTest.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CrystalReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport1.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAllSch.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAllSch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBatch.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmBatch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBatchRpt.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmBatchRpt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCategory.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmCategory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEditPermit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmEditPermit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFacility.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmFacility.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmImpImg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmImpImg.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOHSignOff.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmMOHSignOff.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPhi.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmPhi.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQlookup.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmQlookup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRegSchedule.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmRegSchedule.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReview.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmReview.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScanSource.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmScanSource.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSignature.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSignature.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUser.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LoginForm1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Main.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptbatch.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptbatch.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptReview.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptReview.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="subMedical.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>subMedical.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubTest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SubTest.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="dsBatch.xsc">
+      <DependentUpon>dsBatch.xsd</DependentUpon>
+    </None>
+    <None Include="dsBatch.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBatch.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="dsBatch.xss">
+      <DependentUpon>dsBatch.xsd</DependentUpon>
+    </None>
+    <None Include="Resources\blank.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxVSTWAINLib">
+      <Guid>{1169E0C0-9E76-11D7-B1D8-FB63945DE96D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="VSTWAINLib">
+      <Guid>{1169E0C0-9E76-11D7-B1D8-FB63945DE96D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo.ICO" />
+    <None Include="Resources\Image1.bmp" />
+    <None Include="Resources\backgro.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
