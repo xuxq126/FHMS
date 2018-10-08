@@ -45,7 +45,7 @@ Public Class ClassReview
         Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
 
         Dim queryString As String = "select AI.*,DI.*,FHC.handlerName from ApplicantsInfo AI, DoctorsInfo DI, Card_Info CI, FoodHandlersCategories FHC where AI.AppID=DI.AppID and CI.HandlerID=FHC.HandlerID and" &
-                                    " DI.AppID=CI.AppID and CI.TrainID=@BatchID and CI.AppID in (select SO.AppID from SignOff So where signed=0 and review=1)"
+                                    " DI.AppID=CI.AppID and CI.TrainID=@BatchID and CI.AppID in (SELECT SO.AppID FROM SignOff SO WHERE signed=0 AND review=1)"
 
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
         dbCommand.CommandText = queryString
@@ -64,22 +64,24 @@ Public Class ClassReview
         Return dataSet
     End Function
 
-    Function GetReviewDemoG(ByVal trainId As Integer, ByVal sign As Integer, ByVal review As Integer) As System.Data.DataSet
+    Function GetApplicantInfoReview(ByVal trainId As Integer, ByVal sign As Integer, ByVal review As Integer) As System.Data.DataSet
 
         Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
-        Dim queryString As String = "select AI.*,DI.*,FHC.handlerName from ApplicantsInfo AI, DoctorsInfo DI, Card_Info CI, FoodHandlersCategories FHC where AI.AppID=DI.AppID and CI.HandlerID=FHC.HandlerID and" &
-                                    " DI.AppID=CI.AppID and CI.TrainID=@trainId "
-        'and CI.AppID in (select SO.AppID from SignOff So where signed=@sign and review=@review)"
+        Dim queryString As String = "SELECT AI.*,DI.*,FHC.handlerName FROM ApplicantsInfo AI " &
+                                    "JOIN DoctorsInfo DI ON AI.AppID = DI.AppID " &
+                                    "JOIN Card_Info CI ON AI.AppID = CI.AppID " &
+                                    "JOIN FoodHandlersCategories FHC ON CI.HandlerID = FHC.HandlerID " &
+                                    "WHERE CI.TrainID=@trainId and CI.AppID in (SELECT SO.AppID FROM SignOff SO WHERE review=@review)"
 
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
         dbCommand.CommandText = queryString
         dbCommand.Connection = dbConnection
 
-        Dim dbParam_sign As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
-        dbParam_sign.ParameterName = "@sign"
-        dbParam_sign.Value = sign
-        dbParam_sign.DbType = System.Data.DbType.Int32
-        dbCommand.Parameters.Add(dbParam_sign)
+        'Dim dbParam_sign As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
+        'dbParam_sign.ParameterName = "@sign"
+        'dbParam_sign.Value = sign
+        'dbParam_sign.DbType = System.Data.DbType.Int32
+        'dbCommand.Parameters.Add(dbParam_sign)
 
         Dim dbParam_trainID As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
         dbParam_trainID.ParameterName = "@TrainId"
@@ -149,9 +151,6 @@ Public Class ClassReview
         dbCommand.Parameters.Add(dbParam_AppId)
 
         Try
-
-
-
             dbConnection.Open()
             Dim dataReader As System.Data.IDataReader = dbCommand.ExecuteReader(System.Data.CommandBehavior.CloseConnection)
 

@@ -101,37 +101,35 @@ Public Class Main
                 NewToolStripMenuItem.Enabled = True ' new
                 ToolsMenu.Enabled = False
                 PHIToolStripMenuItem.Enabled = True
-                WindowsMenu.Enabled = False
-            Case 1
+                MOHMenu.Enabled = False
+            Case 1 'MOH Access Level?
                 NewToolStripMenuItem.Enabled = False
-                WindowsMenu.Enabled = True
+                MOHMenu.Enabled = True
                 ToolsMenu.Enabled = False
                 PHIToolStripMenuItem.Enabled = False
-            Case 2
-                NewToolStripMenuItem.Enabled = True 'data entry and phi access combined
-                WindowsMenu.Enabled = False 'moh
+            Case 2 'Data Entry and PHI Access
+                NewToolStripMenuItem.Enabled = True
+                MOHMenu.Enabled = False
                 ToolsMenu.Enabled = True
                 PHIToolStripMenuItem.Enabled = True
-            Case 3
+            Case 3 'PHI Access Level
                 NewToolStripMenuItem.Enabled = False
-                WindowsMenu.Enabled = False 'moh
+                MOHMenu.Enabled = False
                 ToolsMenu.Enabled = False
                 PHIToolStripMenuItem.Enabled = True
-            Case 4
+            Case 4 'Administrator
                 NewToolStripMenuItem.Enabled = True
-                WindowsMenu.Enabled = True
+                MOHMenu.Enabled = True
                 ToolsMenu.Enabled = True
                 PHIToolStripMenuItem.Enabled = True
         End Select
-
-
     End Sub
 
     Private Sub NewWindowToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NewWindowToolStripMenuItem.Click
         Dim frm As New frmMohSignOff
         frm.MdiParent = Me
-        HasMohSign = 0
-        HasReview = 1
+        SignedbyMOH = 0
+        Reviewed = 1
         frm.Show()
 
 
@@ -157,10 +155,10 @@ Public Class Main
     End Sub
 
     Private Sub SignOffStatusToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SignOffStatusToolStripMenuItem.Click
-        Dim frm As New frmReview
+        Dim frm As New frmMohSignOff
         frm.MdiParent = Me
-        HasMohSign = 0
-        HasReview = 0
+        SignedbyMOH = 0
+        Reviewed = 0
         frm.Show()
         
     End Sub

@@ -606,11 +606,11 @@ Public Class SqlClass
 
     End Function
 
-    Function getPermitINfo(ByVal parishId As Integer) As System.Data.IDataReader
+    Function getPermitInfo(ByVal parishId As Integer) As System.Data.IDataReader
 
         Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
 
-        Dim queryString As String = "Select PermitCode,Range from PermitNumber Where ParishID=@parishId"
+        Dim queryString As String = "Select PermitCode, Range from PermitNumber Where ParishID=@parishId"
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
         dbCommand.CommandText = queryString
         dbCommand.Connection = dbConnection
@@ -750,7 +750,7 @@ Public Class SqlClass
 
         Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
 
-        Dim queryString As String = "update PermitNumber set Range=@pnum where ParishID=@parId"
+        Dim queryString As String = "UPDATE PermitNumber SET Range=@pnum where ParishID=@parId"
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
         dbCommand.CommandText = queryString
         dbCommand.Connection = dbConnection
@@ -1327,9 +1327,9 @@ Public Class SqlClass
         Return dataSet
 
     End Function
-    Function GetsignedOnes(ByVal AppId As String) As System.Data.DataSet
+    Function GetSignedApplications(ByVal AppId As String) As Integer
         Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
-        Dim queryString As String = "select signed from SignOff where AppID=@AppID"
+        Dim queryString As String = "SELECT 1 FROM SignOff WHERE AppID = @AppId AND Signed = 1"
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
         dbCommand.CommandText = queryString
         dbCommand.Connection = dbConnection
@@ -1346,8 +1346,37 @@ Public Class SqlClass
         Dim dataSet As System.Data.DataSet = New System.Data.DataSet
         dataAdapter.Fill(dataSet)
 
-        Return dataSet
+        If dataSet.Tables(0).Rows.Count <> 0 Then
+            Return 1
+        Else
+            Return 0
+        End If
+    End Function
 
+    Function GetReviewedApplications(ByVal AppId As String) As Integer
+        Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
+        Dim queryString As String = "SELECT 1 FROM SignOff WHERE AppID = @AppId AND Review = 1"
+        Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
+        dbCommand.CommandText = queryString
+        dbCommand.Connection = dbConnection
+
+        Dim dbParam_AppId As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
+        dbParam_AppId.ParameterName = "@AppId"
+        dbParam_AppId.Value = AppId
+        dbParam_AppId.DbType = System.Data.DbType.String
+        dbCommand.Parameters.Add(dbParam_AppId)
+        dbConnection.Open()
+
+        Dim dataAdapter As System.Data.IDbDataAdapter = New System.Data.SqlClient.SqlDataAdapter
+        dataAdapter.SelectCommand = dbCommand
+        Dim dataSet As System.Data.DataSet = New System.Data.DataSet
+        dataAdapter.Fill(dataSet)
+
+        If dataSet.Tables(0).Rows.Count <> 0 Then
+            Return 1
+        Else
+            Return 0
+        End If
     End Function
 
     Function GetReviewOnes(ByVal AppId As String) As System.Data.DataSet
@@ -1432,11 +1461,13 @@ Public Class SqlClass
 
 
 
-    Function GetInfoForSignOff() As System.Data.DataSet
-        Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
-        Dim queryString As String = "select SD.schDate as [Date of Training], SD.SchTime as [Time of training],Fl.Facilityname as [Facility Name],FHC.HandlerName as [Category],count(SO.AppID) as [Total Applicants],SD.rid as [ID] from Schedules SD," & _
-                                    " Facility FL,FoodHandlersCategories FHC,SignOff SO where FL.FacId=SD.facilityID and FHC.HandlerID=SD.handlerID and" & _
-                                    " SD.rid=SO.TrainID and SO.signed='0' group by SD.SchDate,SD.SchTime,FL.Facilityname, FHC.Handlername,SD.RID"
+    Function GetBatchesforSignOffReview() As System.Data.DataSet
+        Dim dbConnection As IDbConnection = New SqlConnection(connectionString)
+        Dim queryString As String = "SELECT SCHED.SchDate AS [Training Date], SCHED.SchTime As [Training Time], FACIL.Facilityname As [Facility], FHC.HandlerName As [Category], COUNT(SO.AppID) As [Total Applicants], SCHED.RID As [ID]
+		 FROM Schedules SCHED Join Facility FACIL ON FACIL.FacId = SCHED.facilityID
+		 Join FoodHandlersCategories FHC ON FHC.HandlerID = SCHED.handlerID
+		 Join SignOff SO ON SCHED.rid = SO.TrainID Where SO.signed ='0'
+         GROUP BY SCHED.SchDate, SCHED.SchTime, FACIL.Facilityname, FHC.Handlername, SCHED.RID"
 
 
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
@@ -1457,9 +1488,9 @@ Public Class SqlClass
 
     Function GetSignOffIndividual(ByVal trainID As Integer) As System.Data.DataSet
         Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
-        Dim queryString As String = "select AI.*,DI.*,SO.Signed from ApplicantsInfo AI,Schedules SD,SignOff SO, DoctorsInfo DI where " & _
-                                    " AI.AppID=SO.AppID and SO.TrainID=SD.RID and DI.AppID=SO.AppID and DI.TrainID=SO.TrainID" & _
-                                    " and SD.Rid=@trainID and SO.signed='0' and SO.Inbatch='0'"
+        Dim queryString As String = "Select AI.*,DI.*,SO.Signed from ApplicantsInfo AI,Schedules SD,SignOff SO, DoctorsInfo DI where " & _
+                                    " AI.AppID=SO.AppID And SO.TrainID=SD.RID And DI.AppID=SO.AppID And DI.TrainID=SO.TrainID" & _
+                                    " And SD.Rid=@trainID And SO.signed='0' and SO.Inbatch='0'"
 
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
         dbCommand.CommandText = queryString
@@ -1518,14 +1549,18 @@ Public Class SqlClass
         Return rowsAffected
     End Function
 
-    Function ReviewSignOff(ByVal appId As String, ByVal trainId As Integer) As Integer
-
-
+    Function ReviewSignOff(ByVal phiid As Integer, ByVal appId As String, ByVal trainId As Integer) As Integer
         Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
-        Dim queryString As String = "Update SignOff Set review='1' where AppID=@appId and TrainID=@trainId"
+        Dim queryString As String = "Update SignOff Set review = 1, PHI_ID=@phiid WHERE AppID=@appId and TrainID=@trainId"
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
         dbCommand.CommandText = queryString
         dbCommand.Connection = dbConnection
+
+        Dim dbParam_phiid As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
+        dbParam_phiid.ParameterName = "@phiid"
+        dbParam_phiid.Value =
+        dbParam_phiid.DbType = System.Data.DbType.String
+        dbCommand.Parameters.Add(dbParam_phiid)
 
         Dim dbParam_appId As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
         dbParam_appId.ParameterName = "@appId"
@@ -1550,6 +1585,84 @@ Public Class SqlClass
         Return rowsAffected
 
     End Function
+
+    Function CountApplicationstoReview(ByVal trainID As Integer) As Integer
+        Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
+        Dim queryString As String = "SELECT AppId FROM SignOff WHERE TrainID=@trainId AND review='0'"
+        Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
+        dbCommand.CommandText = queryString
+        dbCommand.Connection = dbConnection
+
+        Dim dbParam_trainId As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
+        dbParam_trainId.ParameterName = "@trainId"
+        dbParam_trainId.Value = trainID
+        dbParam_trainId.DbType = System.Data.DbType.Int32
+        dbCommand.Parameters.Add(dbParam_trainId)
+
+        dbConnection.Open()
+
+        Dim dataAdapter As System.Data.IDbDataAdapter = New System.Data.SqlClient.SqlDataAdapter
+        dataAdapter.SelectCommand = dbCommand
+        Dim dataSet As System.Data.DataSet = New System.Data.DataSet
+        dataAdapter.Fill(dataSet)
+
+        Return dataSet.Tables(0).Rows.Count
+    End Function
+
+    Function CountApplicationstoSubmit(ByVal trainID As Integer) As Integer
+        Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
+        Dim queryString As String = "SELECT AppId FROM SignOff WHERE TrainID=@trainId AND signed='0'"
+        Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
+        dbCommand.CommandText = queryString
+        dbCommand.Connection = dbConnection
+
+        Dim dbParam_trainId As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
+        dbParam_trainId.ParameterName = "@trainId"
+        dbParam_trainId.Value = trainID
+        dbParam_trainId.DbType = System.Data.DbType.Int32
+        dbCommand.Parameters.Add(dbParam_trainId)
+
+        dbConnection.Open()
+
+        Dim dataAdapter As System.Data.IDbDataAdapter = New System.Data.SqlClient.SqlDataAdapter
+        dataAdapter.SelectCommand = dbCommand
+        Dim dataSet As System.Data.DataSet = New System.Data.DataSet
+        dataAdapter.Fill(dataSet)
+
+        Return dataSet.Tables(0).Rows.Count
+    End Function
+
+    Function ReviewSignOffAll(ByVal phiid As Integer, ByVal trainId As Integer) As Integer
+        Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
+        Dim queryString As String = "Update SignOff Set review='1', PHI_ID = @phiid WHERE TrainID=@trainId"
+        Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
+        dbCommand.CommandText = queryString
+        dbCommand.Connection = dbConnection
+
+        Dim dbParam_phiid As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
+        dbParam_phiid.ParameterName = "@appId"
+        dbParam_phiid.Value = phiid
+        dbParam_phiid.DbType = System.Data.DbType.String
+        dbCommand.Parameters.Add(dbParam_phiid)
+
+        Dim dbParam_trainId As System.Data.IDataParameter = New System.Data.SqlClient.SqlParameter
+        dbParam_trainId.ParameterName = "@trainId"
+        dbParam_trainId.Value = trainId
+        dbParam_trainId.DbType = System.Data.DbType.Int32
+        dbCommand.Parameters.Add(dbParam_trainId)
+
+        Dim rowsAffected As Integer = 0
+        dbConnection.Open()
+        Try
+            rowsAffected = dbCommand.ExecuteNonQuery
+        Finally
+            dbConnection.Close()
+        End Try
+
+        Return rowsAffected
+
+    End Function
+
     Function GetTrainingType(ByVal trainId As Integer) As String
 
 
@@ -1998,7 +2111,7 @@ Public Class SqlClass
 
         Dim dbConnection As System.Data.IDbConnection = New System.Data.SqlClient.SqlConnection(connectionString)
 
-        Dim queryString As String = "select handlerID from FoodHandlersCategories where HandlerName=@catname"
+        Dim queryString As String = "SELECT handlerID FROM FoodHandlersCategories WHERE HandlerName=@catname"
         Dim dbCommand As System.Data.IDbCommand = New System.Data.SqlClient.SqlCommand
         dbCommand.CommandText = queryString
         dbCommand.Connection = dbConnection

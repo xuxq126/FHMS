@@ -42,7 +42,7 @@ Partial Class Main
         Me.DatabaseSetupToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.BatchCreationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImportImagesForPrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.WindowsMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MOHMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PHIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApplicationStatusToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,9 +64,9 @@ Partial Class Main
         '
         'MenuStrip
         '
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu, Me.ToolsMenu, Me.WindowsMenu, Me.PHIToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.HelpMenu})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu, Me.ToolsMenu, Me.MOHMenu, Me.PHIToolStripMenuItem, Me.ReportsToolStripMenuItem, Me.HelpMenu})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip.MdiWindowListItem = Me.WindowsMenu
+        Me.MenuStrip.MdiWindowListItem = Me.MOHMenu
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Size = New System.Drawing.Size(723, 24)
         Me.MenuStrip.TabIndex = 5
@@ -87,7 +87,7 @@ Partial Class Main
         Me.NewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black
         Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
         Me.NewToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.NewToolStripMenuItem.Text = "&New/Edit"
         '
         'OnsiteApplicationToolStripMenuItem
@@ -111,20 +111,20 @@ Partial Class Main
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(163, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Image = CType(resources.GetObject("ToolStripMenuItem3.Image"), System.Drawing.Image)
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(166, 22)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem3.Text = "Log out"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Image = CType(resources.GetObject("ExitToolStripMenuItem.Image"), System.Drawing.Image)
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'ToolsMenu
@@ -144,41 +144,41 @@ Partial Class Main
         'UserSetupToolStripMenuItem
         '
         Me.UserSetupToolStripMenuItem.Name = "UserSetupToolStripMenuItem"
-        Me.UserSetupToolStripMenuItem.Size = New System.Drawing.Size(175, 22)
+        Me.UserSetupToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.UserSetupToolStripMenuItem.Text = "User setup"
         '
         'FacilitySetupToolStripMenuItem
         '
         Me.FacilitySetupToolStripMenuItem.Name = "FacilitySetupToolStripMenuItem"
-        Me.FacilitySetupToolStripMenuItem.Size = New System.Drawing.Size(175, 22)
+        Me.FacilitySetupToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FacilitySetupToolStripMenuItem.Text = "Facility Setup"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(172, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(175, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem2.Text = "Handler Categories"
         '
         'PermitNoSetupToolStripMenuItem
         '
         Me.PermitNoSetupToolStripMenuItem.Name = "PermitNoSetupToolStripMenuItem"
-        Me.PermitNoSetupToolStripMenuItem.Size = New System.Drawing.Size(175, 22)
+        Me.PermitNoSetupToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PermitNoSetupToolStripMenuItem.Text = "Permit No. Setup"
         '
         'DatabaseSetupToolStripMenuItem
         '
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(172, 6)
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(177, 6)
         '
         'DatabaseSetupToolStripMenuItem1
         '
         Me.DatabaseSetupToolStripMenuItem1.Name = "DatabaseSetupToolStripMenuItem1"
-        Me.DatabaseSetupToolStripMenuItem1.Size = New System.Drawing.Size(175, 22)
+        Me.DatabaseSetupToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.DatabaseSetupToolStripMenuItem1.Text = "Database setup"
         '
         'BatchCreationToolStripMenuItem
@@ -193,12 +193,12 @@ Partial Class Main
         Me.ImportImagesForPrintToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
         Me.ImportImagesForPrintToolStripMenuItem.Text = "Import Images for Print"
         '
-        'WindowsMenu
+        'MOHMenu
         '
-        Me.WindowsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewWindowToolStripMenuItem})
-        Me.WindowsMenu.Name = "WindowsMenu"
-        Me.WindowsMenu.Size = New System.Drawing.Size(56, 20)
-        Me.WindowsMenu.Text = "&MO(H)"
+        Me.MOHMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewWindowToolStripMenuItem})
+        Me.MOHMenu.Name = "MOHMenu"
+        Me.MOHMenu.Size = New System.Drawing.Size(56, 20)
+        Me.MOHMenu.Text = "&MO(H)"
         '
         'NewWindowToolStripMenuItem
         '
@@ -235,7 +235,7 @@ Partial Class Main
         'BatchSheetToolStripMenuItem
         '
         Me.BatchSheetToolStripMenuItem.Name = "BatchSheetToolStripMenuItem"
-        Me.BatchSheetToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.BatchSheetToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.BatchSheetToolStripMenuItem.Text = "&Batch Sheet"
         '
         'HelpMenu
@@ -322,7 +322,7 @@ Partial Class Main
     Friend WithEvents ToolStripSeparator8 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents AboutToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewWindowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents WindowsMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MOHMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OptionsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolTip As System.Windows.Forms.ToolTip
     Friend WithEvents ToolStripStatusLabel As System.Windows.Forms.ToolStripStatusLabel

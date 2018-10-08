@@ -21,14 +21,14 @@ Public Class Login
             Try
                 reader = sql.GetUser(UsernameTextBox.Text.Trim, SqlClass.EncryptText(PasswordTextBox.Text.Trim))
             Catch ex As Exception
-                MessageBox.Show("Can not login user, please try again or contact your system administrator." And vbNewLine And "Details: " And ex.Message)
+                MessageBox.Show("Cannot login user, please try again or contact your system administrator.")
                 Exit Sub
             End Try
 
             If reader.Read Then
                 IsLoggedIn = True
                 AccessLevel = reader("Access_level")
-                ParID = reader("ParishId")
+                ParishID = reader("ParishId")
                 UserID = reader("UserID")
                 Me.Close()
             Else

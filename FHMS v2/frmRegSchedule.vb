@@ -47,7 +47,7 @@ Public Class frmRegSchedule
             handlerID = 1
             scheduleType = "Regular"
             Dim ds As New System.Data.DataSet
-            ds = sql.SelectFacilities(1, ParID)
+            ds = sql.SelectFacilities(1, ParishID)
             If ds.Tables(0).Rows.Count = 0 Then
                 MsgBox("information missing", MsgBoxStyle.Exclamation + vbOKOnly)
                 Exit Sub
@@ -93,7 +93,7 @@ Public Class frmRegSchedule
             handlerID = 2
             scheduleType = "Onsite"
             Dim ds As New System.Data.DataSet
-            ds = sql.SelectFacilities(2, ParID)
+            ds = sql.SelectFacilities(2, ParishID)
             If ds.Tables(0).Rows.Count = 0 Then
                 MsgBox("information missing", MsgBoxStyle.Exclamation + vbOKOnly)
                 Exit Sub

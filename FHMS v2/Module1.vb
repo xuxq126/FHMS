@@ -1,10 +1,10 @@
 Module Module1
     Public AccessLevel As Integer
-    Public ParID As Integer
-    Public TrainID As Integer
+    Public ParishID As Integer
+    Public TrainerID As Integer
     Public UserID As Integer
-    Public NewApp As Boolean = True
-    Public Renewal As Boolean = False
-    Public HasReview As Integer = 0
-    Public HasMohSign As Integer = 0
+    Public NewApplication As Boolean = True
+    Public ApplicationRenewal As Boolean = False
+    Public Reviewed As Integer = 0
+    Public SignedbyMOH As Integer = 0
 End Module

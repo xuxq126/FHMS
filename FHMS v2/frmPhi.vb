@@ -4,7 +4,7 @@ Public Class frmPhi
         If RadioButton1.Checked = True Then
 
             Dim ds As New System.Data.DataSet
-            ds = sql.SelectFacilities(1, ParID)
+            ds = sql.SelectFacilities(1, ParishID)
             With ComboBox1
                 .DataSource = ds.Tables(0)
                 .DisplayMember = "FacilityName"
@@ -20,7 +20,7 @@ Public Class frmPhi
         If RadioButton2.Checked = True Then
 
             Dim ds As New System.Data.DataSet
-            ds = sql.SelectFacilities(2, ParID)
+            ds = sql.SelectFacilities(2, ParishID)
             With ComboBox1
                 .DataSource = ds.Tables(0)
                 .DisplayMember = "FacilityName"
@@ -97,8 +97,8 @@ Public Class frmPhi
     
 
     Private Sub DataGridView1_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles DataGridView1.DoubleClick
-        TrainID = CInt(DataGridView1.Item(4, DataGridView1.CurrentRow.Index).Value)
-        Dim ds As System.Data.DataSet = sql.SearchDataEntry(TrainID)
+        TrainerID = CInt(DataGridView1.Item(4, DataGridView1.CurrentRow.Index).Value)
+        Dim ds As System.Data.DataSet = sql.SearchDataEntry(TrainerID)
         DataGridView2.DataSource = ds
         DataGridView2.DataMember = ("table")
 

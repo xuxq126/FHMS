@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmMohSignOff
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing AndAlso components IsNot Nothing Then
             components.Dispose()
@@ -17,7 +17,7 @@ Partial Class frmMohSignOff
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -42,14 +42,14 @@ Partial Class frmMohSignOff
         Me.dgvBatches.AllowUserToAddRows = False
         Me.dgvBatches.AllowUserToDeleteRows = False
         Me.dgvBatches.AllowUserToResizeRows = False
-        Me.dgvBatches.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvBatches.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvBatches.BackgroundColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvBatches.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SteelBlue
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvBatches.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
@@ -64,11 +64,12 @@ Partial Class frmMohSignOff
         Me.dgvBatches.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvBatches.GridColor = System.Drawing.Color.Silver
         Me.dgvBatches.Location = New System.Drawing.Point(12, 31)
+        Me.dgvBatches.MultiSelect = False
         Me.dgvBatches.Name = "dgvBatches"
         Me.dgvBatches.ReadOnly = True
         Me.dgvBatches.RowHeadersVisible = False
         Me.dgvBatches.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvBatches.Size = New System.Drawing.Size(628, 220)
+        Me.dgvBatches.Size = New System.Drawing.Size(621, 220)
         Me.dgvBatches.TabIndex = 13
         '
         'ApplicantReportViewer
@@ -100,7 +101,7 @@ Partial Class frmMohSignOff
         Me.btnSubmit.Name = "btnSubmit"
         Me.btnSubmit.Size = New System.Drawing.Size(108, 38)
         Me.btnSubmit.TabIndex = 10
-        Me.btnSubmit.Text = "Submit"
+        Me.btnSubmit.Text = "Process"
         Me.btnSubmit.UseVisualStyleBackColor = True
         '
         'btnPrevious
@@ -133,9 +134,10 @@ Partial Class frmMohSignOff
         Me.dgvApplications.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvApplications.BackgroundColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplications.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -182,13 +184,12 @@ Partial Class frmMohSignOff
         '
         'btnSubmitAll
         '
-        Me.btnSubmitAll.Enabled = False
         Me.btnSubmitAll.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.btnSubmitAll.Location = New System.Drawing.Point(56, 405)
         Me.btnSubmitAll.Name = "btnSubmitAll"
         Me.btnSubmitAll.Size = New System.Drawing.Size(108, 38)
         Me.btnSubmitAll.TabIndex = 10
-        Me.btnSubmitAll.Text = "Submit All"
+        Me.btnSubmitAll.Text = "Process All"
         Me.btnSubmitAll.UseVisualStyleBackColor = True
         '
         'frmMohSignOff
@@ -197,7 +198,7 @@ Partial Class frmMohSignOff
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.AutoScrollMargin = New System.Drawing.Size(10, 10)
-        Me.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(984, 661)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)

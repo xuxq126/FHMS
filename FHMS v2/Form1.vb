@@ -3,8 +3,8 @@ Imports System.Data.SqlClient
 Imports Vintasoft.Twain
 
 Public Class Form1
-    Dim Pnum As Integer
-    Dim permitNum As String
+    Dim NextPermitNumber As Integer
+    Dim PermitNumber As String
     Dim SQLHelper As New SqlClass
     Dim hdib As IntPtr
 
@@ -20,17 +20,18 @@ Public Class Form1
 
                 PopulateApp()
             End If
-            NewApp = False
+            NewApplication = False
         End If
-        Renewal = False
+        ApplicationRenewal = False
 
     End Sub
+
     Sub PopulateApp()
         Dim reader As SqlDataReader = SQLHelper.SearchGeneralInfo(txtPermitNo.Text)
         If reader.Read() Then
             Try
                 txtmname.Text = If(reader("mname") IsNot (DBNull.Value), reader("mname"), String.Empty)
-                DateTimePicker1.Value = reader("AppDate")
+                dtpApplicationDate.Value = reader("AppDate")
                 txtfname.Text = Trim(reader("fname"))
                 txtlname.Text = Trim(reader("lname"))
                 dtpDOB.Value = Trim(reader("Dob"))
@@ -124,153 +125,17 @@ Public Class Form1
     Dim ImageBinary As Byte()
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim HandlerId As Integer = SQLHelper.GetCategoryID(dgvSchedule.Item(2, dgvSchedule.CurrentRow.Index).Value)
+        'Save Personal Info
 
-        If (Not txtPermitNo.Text.Trim = "") And Renewal = True Then
 
-            'renew permit
-            Dim Scheduled As Boolean = SQLHelper.CheckRenewal(txtPermitNo.Text.Trim, CInt(dgvSchedule.Item(4, dgvSchedule.CurrentRow.Index).Value))
-            If Scheduled = True Then
-                MsgBox("You cannot renew to the same schedule, please select another schedule", MsgBoxStyle.Exclamation + vbOKOnly)
-                Exit Sub
-            End If
-
-            If txtrecipNo.Text = "" Or txtrecipNo.Text.Trim = "0" Or txtrecipNo.Text.Length < 3 Then
-                MsgBox("you entered an invalid Receipt No. please verify and try again", MsgBoxStyle.Critical + vbOKOnly)
-                Exit Sub
-            End If
-
-            'Dim RecNoExists As Boolean = SQLHelper.CheckRecNo(txtrecipNo.Text.Trim)
-            'If RecNoExists Then
-            'MsgBox("The receipt number you entered is already in the system, please verify that you have entered the correct one." &" You cannot proceed until you have entered a valid Receipt Number", MsgBoxStyle.Critical + vbOKOnly)
-
-            ' Exit Sub
-            ' End If
-            If MsgBox("Are you sure you want to renew this permit", MsgBoxStyle.Exclamation + vbOKCancel) = MsgBoxResult.Ok Then
-                ImageBinary = SQLHelper.GetImageBytes(appPic.Image)
-                updateApp()
-                '  sql.UpdatePic(ImageBinary, txtPermitNo.Text.Trim)
-                'Dim updateApp As Integer = sql.UpdateAppInfo2(txtPermitNo.Text.Trim, DateTimePicker1.Value, txtfname.Text.Trim, txtmname.Text.Trim, _
-                '                                            txtlname.Text.Trim, DateTimePicker2.Value, cmbGender.Text.Trim, _
-                '                                            txtTelephone.Text.Trim, txtaddress1.Text.Trim, txtAddress2.Text.Trim, cmbparish.Text.Trim, _
-                '                                            txtempname.Text.Trim, txtempaddress1.Text.Trim, cmbempparish.Text.Trim, ImageBinary)
-
-                Dim updateDoc As Integer = SQLHelper.UpateDoctorInfo(TrainID, txtPermitNo.Text.Trim, cbxLiveAbroad.CheckState, txtabroadaddress.Text.Trim, txtabroadperiod.Text.Trim,
-                                                           cbxTravelledAbroad.CheckState, TextBox1.Text.Trim, MaskedTextBox1.Text.Trim, cmbMedicallyAccp.Text.Trim, chkLiterate.CheckState,
-                                                           txtdoctorname.Text.Trim, txtdoctorAdd.Text.Trim, txtDocTelephone.Text.Trim)
-
-                UpdateMedical()
-                Dim SignOff As Integer = SQLHelper.AddToSignOff(TrainID, txtPermitNo.Text.Trim, 0, 0, 0, 0)
-                addMedical()
-
-                Select Case type
-                    Case 1
-                        Dim num2 As Integer = SQLHelper.AddTrainingInfo(TrainID, txtPermitNo.Text.Trim, CInt(txtScore.Text.Trim), lblcategory.Text.Trim, ComboBox1.Text.Trim)
-                    Case 2
-                        addOnsiteScores()
-                End Select
-                'Dim score As Integer = sql.AddTrainingInfo(TrainID, txtPermitNo.Text.Trim, CInt(txtscore.Text.Trim), lblcategory.Text.Trim, ComboBox1.Text.Trim)
-                Dim cardInfo As Integer = SQLHelper.AddCardInfo(DateTimePicker1.Value, DateTimePicker1.Value.AddYears(1), TrainID, txtPermitNo.Text.Trim, txtrecipNo.Text.Trim, cmbpaid.Text.Trim, HandlerId)
-                Dim audit As Integer = SQLHelper.AddAudit(txtPermitNo.Text.Trim, TrainID, Now.Date.Date, String.Format("{0:T}", DateTime.Now), UserID, "Renew")
-                'updateApp > 0 And 
-                If updateDoc > 0 And SignOff > 0 And cardInfo > 0 Then
-                    MsgBox("Card Successfully renewed", MsgBoxStyle.Information + vbOKOnly)
-                Else
-                    MsgBox("One or Items could not be updated please try again, this time verify that all required information are supplied", MsgBoxStyle.Critical + vbOKOnly)
-                    Exit Sub
-                End If
-            Else
-                Exit Sub
-            End If
-
-        ElseIf (Not txtPermitNo.Text.Trim = "") And Renewal = False Then
-            'Update application
-            If SQLHelper.AppExists(txtPermitNo.Text.Trim) = True Then
-                'sql.CheckRecNoID
-
-                ImageBinary = SQLHelper.GetImageBytes(appPic.Image)
-                updateApp()
-                ' sql.UpdatePic(ImageBinary, txtPermitNo.Text.Trim)
-                'Dim updateApp As Integer = sql.UpdateAppInfo2(txtPermitNo.Text.Trim, DateTimePicker1.Value, txtfname.Text.Trim, txtmname.Text.Trim, _
-                '                                            txtlname.Text.Trim, DateTimePicker2.Value, cmbGender.Text.Trim, _
-                '                                            txtTelephone.Text.Trim, txtaddress1.Text.Trim, txtAddress2.Text.Trim, cmbparish.Text.Trim, _
-                '                                            txtempname.Text.Trim, txtempaddress1.Text.Trim, cmbempparish.Text.Trim, ImageBinary)
-
-                Dim updateDoc As Integer = SQLHelper.UpateDoctorInfo(TrainID, txtPermitNo.Text.Trim, cbxLiveAbroad.CheckState, txtabroadaddress.Text.Trim, txtabroadperiod.Text.Trim,
-                                                           cbxTravelledAbroad.CheckState, TextBox1.Text.Trim, MaskedTextBox1.Text.Trim, cmbMedicallyAccp.Text.Trim, chkLiterate.CheckState,
-                                                          txtdoctorname.Text.Trim, txtdoctorAdd.Text.Trim, txtDocTelephone.Text.Trim)
-                UpdateMedical()
-                Dim audit As Integer = SQLHelper.AddAudit(txtPermitNo.Text.Trim, TrainID, Now.Date.Date, String.Format("{0:T}", DateTime.Now), UserID, "Edit")
-                'updateApp > 0 And
-                If updateDoc > 0 Then  '("hh:mm tt")
-                    MsgBox("Update successfull", MsgBoxStyle.Exclamation + vbOKOnly)
-                Else
-                    MsgBox("One or Items could not be updated please try again, this time verify that all required information are supplied", MsgBoxStyle.Critical + vbOKOnly)
-                    Exit Sub
-                End If
-            End If
-
-        ElseIf (txtPermitNo.Text.Trim = "") And cbxNewPermit.Checked = True Then
-
-            'add application
-
-            If txtfname.Text = String.Empty Or txtlname.Text = String.Empty Then
-                MsgBox("Please enter Applicant first and last name.", MsgBoxStyle.Exclamation + vbOKOnly)
-                Exit Sub
-            End If
-
-            If CInt(txtage.Text.Trim) < 16 Then
-                MsgBox("Applicants must be at least 16 years old!", MsgBoxStyle.Exclamation + vbOKOnly)
-                Exit Sub
-            End If
-
-            If txtrecipNo.Text = "" Or txtrecipNo.Text.Trim = "0" Or txtrecipNo.Text.Length < 3 Then
-                MsgBox("Invalid Receipt Number, please verify and try again.", MsgBoxStyle.Critical + vbOKOnly)
-                Exit Sub
-            End If
-
-            'Dim RecNoExists As Boolean = SQLHelper.CheckRecNo(txtrecipNo.Text.Trim)
-            ' If RecNoExists Then
-            'MsgBox("Receipt No. you specify already in the system, please verify that you have entered the correct one." &
-            ' " you cannot proceed until you entered a valid Receipt No.", MsgBoxStyle.Critical + vbOKOnly)
-            'Exit Sub
-            'End If
-
-            createPermitNo()
-
-            ImageBinary = SQLHelper.GetImageBytes(appPic.Image)
-            Dim num As Integer = SQLHelper.AddRegApplication(permitNum, DateTimePicker1.Value, txtfname.Text.Trim, txtmname.Text.Trim,
-                                                    txtlname.Text.Trim, dtpDOB.Value, cmbGender.Text.Trim,
-                                                    txtTelephone.Text.Trim, txtaddress1.Text.Trim, txtAddress2.Text.Trim, cmbparish.Text.Trim,
-                                                    txtempname.Text.Trim, txtempaddress1.Text.Trim, cmbempparish.Text.Trim, ImageBinary)
-            Dim num1 As Integer = SQLHelper.UpdatePermitNumber(Pnum, ParID)
-            addMedical()
-            Select Case type
-                Case 1
-                    Dim num2 As Integer = SQLHelper.AddTrainingInfo(TrainID, permitNum, CInt(txtScore.Text.Trim), lblcategory.Text.Trim, ComboBox1.Text.Trim)
-                Case 2
-                    addOnsiteScores()
-            End Select
-
-            Dim num3 As Integer = SQLHelper.AddToSignOff(TrainID, permitNum, 0, 0, 0, 0)
-            Dim num4 As Integer = SQLHelper.AddDoctorsInfo(TrainID, permitNum, cbxLiveAbroad.CheckState, txtabroadaddress.Text.Trim, txtabroadperiod.Text.Trim,
-                                                  cbxTravelledAbroad.CheckState, TextBox1.Text.Trim, MaskedTextBox1.Text.Trim, cmbMedicallyAccp.Text.Trim, chkLiterate.CheckState,
-                                                  txtdoctorname.Text.Trim, txtdoctorAdd.Text.Trim, txtDocTelephone.Text.Trim)
-            Dim num5 As Integer = SQLHelper.AddCardInfo(DateTimePicker1.Value, DateTimePicker1.Value.AddYears(1), TrainID, permitNum, txtrecipNo.Text.Trim, cmbpaid.Text.Trim, HandlerId)
-
-            Dim audit As Integer = SQLHelper.AddAudit(txtPermitNo.Text.Trim, TrainID, Now.Date.Date, String.Format("{0:T}", DateTime.Now), UserID, "New")
-            If num > 0 Then
-                MsgBox("success", vbOKOnly)
-                If MsgBox("Would you like to enter another application now ?", MsgBoxStyle.Information + vbYesNo) = MsgBoxResult.Yes Then
-                    ClearForm()
-                End If
-            End If
-
-        End If
+        'Save Travel Information
+        'Save Symptoms
+        'Save Schedule Information
+        'Save Meta Info
 
     End Sub
-    Sub updateApp()
 
+    Sub UpdateApplication()
         Dim cn As SqlConnection = New SqlConnection(SQLHelper.connectionString)
         Dim cmdSave As New SqlCommand("[UpdateApplicants]", cn)
         Dim prmParam As SqlParameter
@@ -289,7 +154,7 @@ Public Class Form1
             prmParam.ParameterName = "@Apdate"
             prmParam.DbType = DbType.Date
             'prmParam.Size = 10
-            prmParam.Value = Me.DateTimePicker1.Value
+            prmParam.Value = Me.dtpApplicationDate.Value
             .Parameters.Add(prmParam)
             prmParam = Nothing
 
@@ -389,8 +254,6 @@ Public Class Form1
             .Parameters.Add(prmParam)
             prmParam = Nothing
 
-
-
             Try
                 If .Connection.State = ConnectionState.Closed Then .Connection.Open()
 
@@ -406,9 +269,7 @@ Public Class Form1
             End Try
         End With
         ' Return False
-
     End Sub
-
 
     Public Sub FormatImageParameter(ByRef prmParam As SqlClient.SqlParameter, ByVal img As Image)
         prmParam.SqlDbType = SqlDbType.Image
@@ -432,7 +293,6 @@ Public Class Form1
         Return bImg
     End Function
 
-
     Sub addOnsiteScores()
         Dim i As Integer
 
@@ -440,7 +300,7 @@ Public Class Form1
             If CBool(dgvTests.Rows(i).Cells("column3").Value) = True Then
 
                 ' num = sql.addMedicalCond(TrainID, permitNum, DGVmedical.Rows(i).Cells("column2").Value)
-                Dim num As Integer = SQLHelper.AddTrainingInfo(TrainID, txtPermitNo.Text.Trim, dgvTests.Rows(i).Cells("column6").Value, dgvTests.Rows(i).Cells("column4").Value, ComboBox1.Text.Trim)
+                Dim num As Integer = SQLHelper.AddTrainingInfo(TrainerID, txtPermitNo.Text.Trim, dgvTests.Rows(i).Cells("column6").Value, dgvTests.Rows(i).Cells("column4").Value, ComboBox1.Text.Trim)
 
             End If
         Next
@@ -453,7 +313,7 @@ Public Class Form1
             If CBool(dgvTests.Rows(i).Cells("column3").Value) = True Then
 
                 ' num = sql.addMedicalCond(TrainID, permitNum, DGVmedical.Rows(i).Cells("column2").Value)
-                Dim num As Integer = SQLHelper.UpdateTrainingInfo(TrainID, oldTrainID, txtPermitNo.Text.Trim, dgvTests.Rows(i).Cells("column6").Value, dgvTests.Rows(i).Cells("column4").Value, ComboBox1.Text.Trim)
+                Dim num As Integer = SQLHelper.UpdateTrainingInfo(TrainerID, oldTrainID, txtPermitNo.Text.Trim, dgvTests.Rows(i).Cells("column6").Value, dgvTests.Rows(i).Cells("column4").Value, ComboBox1.Text.Trim)
 
             End If
         Next
@@ -466,7 +326,7 @@ Public Class Form1
         For i = 0 To dgvSymptoms.Rows.Count - 1
             If CBool(dgvSymptoms.Rows(i).Cells("column1").Value) = True Then
 
-                num = SQLHelper.addMedicalCond(TrainID, txtPermitNo.Text.Trim, dgvSymptoms.Rows(i).Cells("column2").Value)
+                num = SQLHelper.addMedicalCond(TrainerID, txtPermitNo.Text.Trim, dgvSymptoms.Rows(i).Cells("column2").Value)
 
             Else
 
@@ -480,7 +340,7 @@ Public Class Form1
         Dim num As Integer
         For i = 0 To dgvSymptoms.Rows.Count - 1
             If CBool(dgvSymptoms.Rows(i).Cells("column1").Value) = True Then
-                num = SQLHelper.UpdateHealth(TrainID, txtPermitNo.Text.Trim, dgvSymptoms.Rows(i).Cells("column2").Value)
+                num = SQLHelper.UpdateHealth(TrainerID, txtPermitNo.Text.Trim, dgvSymptoms.Rows(i).Cells("column2").Value)
             Else
             End If
         Next
@@ -489,7 +349,7 @@ Public Class Form1
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         hdib = System.IntPtr.Zero
-        NewApp = True
+        NewApplication = True
         'clearform()
         loadAppParish()
         loadEmpParish()
@@ -499,7 +359,7 @@ Public Class Form1
         dgvSchedule.DataSource = ds
         dgvSchedule.DataMember = ("table")
 
-        Dim dsTrainer As System.Data.DataSet = SQLHelper.getTrainers(ParID, 2)
+        Dim dsTrainer As System.Data.DataSet = SQLHelper.getTrainers(ParishID, 2)
 
         Dim i As Integer
         For i = 0 To dsTrainer.Tables(0).Rows.Count - 1
@@ -529,7 +389,7 @@ Public Class Form1
         txtempaddress1.Text = ""
         cmbempparish.Text = ""
         appPic.Image = Nothing
-        txtrecipNo.Text = ""
+        txtReceiptNumber.Text = ""
         ComboBox1.Text = ""
         cmbpaid.Text = ""
         chkLiterate.Checked = False
@@ -589,6 +449,7 @@ Public Class Form1
             .SelectedIndex = 0
         End With
     End Sub
+
     Sub loadEmpParish()
         Dim dataset1 As New System.Data.DataSet
         dataset1 = SQLHelper.getParishes
@@ -604,7 +465,7 @@ Public Class Form1
         appPic.Image = Nothing
 
         With OpenFileDialog1
-            .Filter = "All Files|*.*|JPEGs|*.jpg|Bitmaps|*.bmp|GIFs|*.gif"
+            .Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.bmp, *.png, *.gif) | *.jpg; *.jpeg; *.jpe; *.bmp; *.png; *.gif"
             .FilterIndex = 0
         End With
         If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
@@ -617,16 +478,15 @@ Public Class Form1
 
     End Sub
 
-
     Dim cat As String
     Dim type As String
-    Private Sub DataGridView1_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvSchedule.DoubleClick
-        If NewApp = True Then
+    Private Sub dgvSchedule_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvSchedule.DoubleClick
+        If NewApplication = True Then
             cat = dgvSchedule.Item(2, dgvSchedule.CurrentRow.Index).Value
-            TrainID = CInt(dgvSchedule.Item(4, dgvSchedule.CurrentRow.Index).Value)
-            Dim recNo As String = SQLHelper.GetRecNo(TrainID)
+            TrainerID = CInt(dgvSchedule.Item(4, dgvSchedule.CurrentRow.Index).Value)
+            Dim recNo As String = SQLHelper.GetRecNo(TrainerID)
 
-            type = SQLHelper.GetTrainingType(TrainID)
+            type = SQLHelper.GetTrainingType(TrainerID)
 
             Select Case Trim(type)
                 Case 1
@@ -634,25 +494,19 @@ Public Class Form1
                     lblcategory.Visible = True
                     pnlScore.Visible = True
                     dgvTests.Visible = False
-                    txtrecipNo.Text = ""
-                    txtrecipNo.Enabled = True
+                    txtReceiptNumber.Text = ""
+                    txtReceiptNumber.Enabled = True
                 Case 2
                     lblcategory.Visible = False
                     pnlScore.Visible = False
                     dgvTests.Visible = True
                     LoadTests()
-                    txtrecipNo.Text = Trim(recNo)
-                    txtrecipNo.Enabled = False
+                    txtReceiptNumber.Text = Trim(recNo)
+                    txtReceiptNumber.Enabled = False
 
             End Select
 
-
-
-
-
-
-        ElseIf NewApp = False Then
-
+        ElseIf NewApplication = False Then
             Dim reader As System.Data.IDataReader = SQLHelper.GetScoreCard(txtPermitNo.Text.Trim, dgvSchedule.Item(4, dgvSchedule.CurrentRow.Index).Value)
             If reader.Read Then
                 type = SQLHelper.GetTrainingType(CInt(dgvSchedule.Item(4, dgvSchedule.CurrentRow.Index).Value))
@@ -660,7 +514,7 @@ Public Class Form1
                     Case 1
 
                         txtScore.Text = Trim(reader("Score"))
-                        txtrecipNo.Text = Trim(reader("recNo"))
+                        txtReceiptNumber.Text = Trim(reader("recNo"))
                         cmbpaid.Text = FormatCurrency(reader("paid"), 2)
                         ComboBox1.Text = Trim(reader("trainer"))
                         lblcategory.Text = Trim(reader("TestName"))
@@ -691,19 +545,15 @@ Public Class Form1
                             End If
                         Next
 
-                        txtrecipNo.Text = Trim(reader("recNo"))
+                        txtReceiptNumber.Text = Trim(reader("recNo"))
                         cmbpaid.Text = FormatCurrency(reader("paid"), 2)
                         ComboBox1.Text = Trim(reader("trainer"))
                         btnRenewPermit.Visible = True
                         btnEditSchedule.Visible = True
 
                 End Select
-
             End If
-
-
         End If
-
     End Sub
     Sub LoadTestsResult()
         Dim ds As System.Data.DataSet = SQLHelper.GetTests
@@ -732,8 +582,6 @@ Public Class Form1
 
     End Sub
 
-
-
     Private Sub TextBox2_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtScore.TextChanged
         If Val(txtScore.Text) >= 70 Then
             'pass
@@ -746,43 +594,44 @@ Public Class Form1
         End If
     End Sub
 
-    Function createPermitNo() As String
+    Function CreatePermitNo() As String
         Dim reader As System.Data.IDataReader
-        Dim Pinfo As String
-        Dim appdate As Date
+        Dim PermitCode As String
+        Dim ApplicationDate As Date
 
-        reader = SQLHelper.getPermitINfo(ParID)  'collects permit number from database to be used for permit number creation
+        Try
+            reader = SQLHelper.getPermitInfo(ParishID)         'collects permit number from database to be used for permit number creation
 
-        'GET application number from database
-        If reader.Read Then
-            Pinfo = reader.Item("PermitCode") ' first part of the application number
-            Pnum = reader.Item("Range") + 1 ' the number itself
-        Else
-            MsgBox("please configure permit number codes, then try again", MsgBoxStyle.Critical + vbOKOnly)
-            Me.Dispose()
+            'GET application number from database
+            If reader.Read Then
+                PermitCode = reader.Item("PermitCode")      ' first part of the application number
+                NextPermitNumber = reader.Item("Range") + 1 ' the number itself
 
-        End If
+                ApplicationDate = dtpApplicationDate.Text
 
-        'testing the number  not needed.. please remove
-        Dim te As String
-        te = Pinfo & Pnum
-        appdate = DateTimePicker1.Text
+                PermitNumber = Trim(PermitCode.Trim & ApplicationDate.ToString("yy") & ApplicationDate.ToString("MM") & NextPermitNumber)
+                'txtPermitNo.Text = PermitNumber
+            Else
+                MsgBox("Please configure Permit Number codes and try again.", MsgBoxStyle.Critical + vbOKOnly)
+                Exit Function
+            End If
+        Catch ex As Exception
+            MessageBox.Show("An error occurred. Details: " & ex.Message)
+            Exit Function
+        End Try
 
-
-        permitNum = Trim(Pinfo.Trim & appdate.ToString("yy") & appdate.ToString("MM") & Pnum)
-        txtPermitNo.Text = permitNum
-
+        Return PermitNumber
     End Function
 
     Private Sub btnRenewPermit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRenewPermit.Click
 
-        Renewal = True
+        ApplicationRenewal = True
         Dim ds As System.Data.DataSet = SQLHelper.GetAllSchedules(Now.Month)
         dgvSchedule.DataSource = ds
         dgvSchedule.DataMember = ("table")
         pnlScore.Visible = False
         dgvTests.Visible = False
-        NewApp = True
+        NewApplication = True
 
     End Sub
 
@@ -799,9 +648,9 @@ Public Class Form1
             txtScore.Text = ""
         End If
 
-        NewApp = True
+        NewApplication = True
         'End If
-        Renewal = False
+        ApplicationRenewal = False
     End Sub
 
     Private Sub btnUpdateImage_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateImage.Click
@@ -827,16 +676,13 @@ Public Class Form1
         End If
     End Sub
 
-
-
-
     Private Sub DataGridView1_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvSchedule.CellContentClick
 
     End Sub
 
     Private Sub btnedit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditSchedule.Click
 
-        If txtrecipNo.Text = "" Or txtrecipNo.Text.Trim = "0" Or txtrecipNo.Text.Length < 3 Then
+        If txtReceiptNumber.Text = "" Or txtReceiptNumber.Text.Trim = "0" Or txtReceiptNumber.Text.Length < 3 Then
             MsgBox("you entered an invalid Receipt No. please verify and try again", MsgBoxStyle.Critical + vbOKOnly)
             Exit Sub
         End If
@@ -849,33 +695,28 @@ Public Class Form1
             oTrainID = oldTrainID
         End If
 
-        TrainID = CInt(dgvSchedule.Item(4, dgvSchedule.CurrentRow.Index).Value)
+        TrainerID = CInt(dgvSchedule.Item(4, dgvSchedule.CurrentRow.Index).Value)
         'Dim recNo As String = sql.GetRecNo(TrainID)
 
-        type = SQLHelper.GetTrainingType(TrainID)
+        type = SQLHelper.GetTrainingType(TrainerID)
 
         Select Case type
             Case 1
-                Dim num2 As Integer = SQLHelper.UpdateTrainingInfo(TrainID, oTrainID, txtPermitNo.Text.Trim, CInt(txtScore.Text.Trim), lblcategory.Text.Trim, ComboBox1.Text.Trim)
+                Dim num2 As Integer = SQLHelper.UpdateTrainingInfo(TrainerID, oTrainID, txtPermitNo.Text.Trim, CInt(txtScore.Text.Trim), lblcategory.Text.Trim, ComboBox1.Text.Trim)
             Case 2
                 UpdateOnsiteScores()
         End Select
 
         'UpdateCardInfo
         Dim HandlerId As Integer = SQLHelper.GetCategoryID(dgvSchedule.Item(2, dgvSchedule.CurrentRow.Index).Value)
-        Dim num As Integer = SQLHelper.UpdateCardInfo(DateTimePicker1.Value, DateTimePicker1.Value.AddYears(1), TrainID, oTrainID, txtPermitNo.Text.Trim, txtrecipNo.Text.Trim, cmbpaid.Text.Trim, HandlerId)
+        Dim num As Integer = SQLHelper.UpdateCardInfo(dtpApplicationDate.Value, dtpApplicationDate.Value.AddYears(1), TrainerID, oTrainID, txtPermitNo.Text.Trim, txtReceiptNumber.Text.Trim, cmbpaid.Text.Trim, HandlerId)
         If num > 0 Then
             MsgBox("Schedule Updated", MsgBoxStyle.Information + vbOKOnly)
-            NewApp = False
+            NewApplication = False
             PopulateApp()
 
         End If
-
-
-
     End Sub
-
-
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnScanImage.Click
         Try
@@ -898,11 +739,17 @@ Public Class Form1
 
     End Sub
 
-    Private Sub txtrecipNo_TextChanged(sender As Object, e As EventArgs) Handles txtrecipNo.TextChanged
+    Private Sub txtrecipNo_TextChanged(sender As Object, e As EventArgs) Handles txtReceiptNumber.TextChanged
 
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles cbxNewPermit.CheckedChanged
+    Private Sub cbxNewPermit_CheckedChanged(sender As Object, e As EventArgs) Handles cbxNewPermit.CheckedChanged
+        If cbxNewPermit.Checked Then
+            btnLookupApplicant.Enabled = False
 
+
+        Else
+            btnLookupApplicant.Enabled = True
+        End If
     End Sub
 End Class

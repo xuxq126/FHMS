@@ -193,10 +193,10 @@
     <Compile Include="frmCategory.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEditPermit.Designer.vb">
+    <Compile Include="Resources\frmEditPermit.Designer.vb">
       <DependentUpon>frmEditPermit.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmEditPermit.vb">
+    <Compile Include="Resources\frmEditPermit.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmFacility.Designer.vb">
@@ -337,7 +337,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmCategory.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmEditPermit.resx">
+    <EmbeddedResource Include="Resources\frmEditPermit.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmEditPermit.vb</DependentUpon>
     </EmbeddedResource>

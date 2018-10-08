@@ -20,7 +20,7 @@ Public Class frmReview
     '    Return ds
     'End Function
     Sub loadClinics()
-        Dim ds1 As System.Data.DataSet = sql.GetInfoForSignOff
+        Dim ds1 As System.Data.DataSet = sql.GetBatchesforSignOffReview
         DataGridView1.DataSource = ds1
         DataGridView1.DataMember = ("table")
 
@@ -73,20 +73,12 @@ Public Class frmReview
                 .travAdd = ds.Tables(0).Rows(currPos).Item("TravelledWhere")
                 .travWhen = ds.Tables(0).Rows(currPos).Item("TravelledWhen")
                 .medically_accpted = ds.Tables(0).Rows(currPos).Item("MedicallyAccepted")
-
-
-
-
-
             End With
             BatchInfo.AddDataTable2Row(dr)
-
 
             Dim reader2 As System.Data.IDataReader
             reader2 = review.GetTestG(DataGridView1.Rows(DataGridView1.CurrentRow.Index).Cells(5).Value, appid)
             While reader2.Read
-
-
                 Dim dr2 As dsBatch.DTTestResultRow
                 dr2 = trainInfo.NewDTTestResultRow
                 With dr2
@@ -111,7 +103,6 @@ Public Class frmReview
             Mreader.Close()
             Mreader.Dispose()
 
-
             Try
                 subrpt = mainrpt.OpenSubreport("SubTest.rpt")
                 subrpt2 = mainrpt.OpenSubreport("subMedical.rpt")
@@ -119,10 +110,6 @@ Public Class frmReview
                 subrpt2.SetDataSource(CType(docInfo, DataTable))
                 mainrpt.SetDataSource(CType(BatchInfo, DataTable))
                 CrystalReportViewer1.ReportSource = mainrpt
-
-
-
-
             Catch ex As CrystalDecisions.CrystalReports.Engine.EngineException
                 Throw ex
             End Try
@@ -138,8 +125,9 @@ Public Class frmReview
 
     Private Sub DataGridView1_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles DataGridView1.DoubleClick
 
-        ds = review.GetReviewDemoG(DataGridView1.Rows(DataGridView1.CurrentRow.Index).Cells(5).Value, HasMohSign, HasReview)
+        ds = review.GetApplicantInfoReview(DataGridView1.Rows(DataGridView1.CurrentRow.Index).Cells(5).Value, SignedbyMOH, Reviewed)
         loadApp(0, ds)
+
     End Sub
 
    
@@ -150,20 +138,20 @@ Public Class frmReview
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        If MsgBox("are you sure you want to submitt this application for MOH sign Off?", MsgBoxStyle.Information + vbYesNo) = MsgBoxResult.Yes Then
-            Dim num As Integer = sql.ReviewSignOff(appid, DataGridView1.Rows(DataGridView1.CurrentRow.Index).Cells(5).Value)
-            If num > 0 Then
-                'Button3.Text = "Reviewed"
-                'Button3.Enabled = False
-                Button1.PerformClick()
-            Else
-                Button3.Text = "Submitt"
-                Button3.Enabled = True
+        'If MsgBox("are you sure you want to submitt this application for MOH sign Off?", MsgBoxStyle.Information + vbYesNo) = MsgBoxResult.Yes Then
+        '    Dim num As Integer = sql.ReviewSignOff(appid, DataGridView1.Rows(DataGridView1.CurrentRow.Index).Cells(5).Value)
+        '    If num > 0 Then
+        '        'Button3.Text = "Reviewed"
+        '        'Button3.Enabled = False
+        '        Button1.PerformClick()
+        '    Else
+        '        Button3.Text = "Submitt"
+        '        Button3.Enabled = True
 
-            End If
-        Else
-            Exit Sub
-        End If
+        '    End If
+        'Else
+        '    Exit Sub
+        'End If
 
     End Sub
 
